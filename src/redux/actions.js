@@ -39,3 +39,18 @@ const fetchPizzasFail = error => {
   }
 }
 // end of FETCH PIZZAS
+
+// start of PIZZA EDIT FORM
+export const onPizzaEditFormChange = (...editedData) => {
+  let dataToEdit = {}
+
+  editedData.forEach(data => {
+    dataToEdit[data[0]] = data[1]
+  })
+
+  return {
+    type: actionTypes.PIZZA_EDIT_FORM_WAS_CHANGED,
+    editedData: dataToEdit
+  }
+}
+// end of PIZZA EDIT FORM

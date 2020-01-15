@@ -6,6 +6,12 @@ const initialState = {
     pizzas: [],
     isLoadingPizzas: false,
     loadPizzasError: null
+  },
+  pizzaEditForm: {
+    id: null,
+    topping: "",
+    size: "",
+    vegetarian: null
   }
 }
 
@@ -16,7 +22,7 @@ const updateObject = (oldObject, updatedProperties) => {
   }
 }
 
-// start of FETCH PIZZAS
+// start of FETCH PIZZAS reducer
 const fetchPizzasStart = (state, action) => {
   return updateObject(state, {
     pizzas: action.pizzas,
@@ -48,10 +54,24 @@ const pizzasReducer = (state = initialState.pizzas, action) => {
     default: return state
   }
 }
-// end of FETCH PIZZAS
+// end of FETCH PIZZAS reducer
+
+// start of PIZZA EDIT FORM reducer
+const onPizzaEditFormChange = (state, action) => {
+  return updateObject(state, action.editedData)
+}
+
+const pizzaEditFormReducer = (state = initialState.pizzaEditForm, action) => {
+  switch (action.type) {
+    case actionTypes.PIZZA_EDIT_FORM_WAS_CHANGED: return onPizzaEditFormChange(state, action)
+    default: return state
+  }
+}
+// end of PIZZA EDIT FORM reducer
 
 const appReducers = combineReducers({
-  pizzas: pizzasReducer
+  pizzas: pizzasReducer,
+  pizzaEditForm: pizzaEditFormReducer
 })
 
 const rootReducer = (state, action) => {
