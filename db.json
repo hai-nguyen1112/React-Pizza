@@ -59,12 +59,6 @@
       "topping": "Chicken",
       "size": "Large",
       "vegetarian": true
-    },
-    {
-      "topping": "Plain",
-      "size": "Large",
-      "vegetarian": false,
-      "id": 11
     }
   ]
 }

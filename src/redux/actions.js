@@ -148,3 +148,47 @@ const addPizzaFail = error => {
   }
 }
 // end of ADD PIZZA
+
+// start of DELETE PIZZA
+export const deletePizza = id => {
+  return dispatch => {
+    dispatch(deletePizzaStart())
+
+    axios({
+      url: `pizzas/${id}`,
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    .then(resposne => dispatch(deletePizzaSuccess(id)))
+    .catch(error => dispatch(deletePizzaFail(error)))
+  }
+}
+
+const deletePizzaStart = () => {
+  return {
+    type: actionTypes.DELETE_PIZZA_START,
+    isDeletingPizza: true,
+    deletePizzaError: null
+  }
+}
+
+const deletePizzaSuccess = id => {
+  return {
+    type: actionTypes.DELETE_PIZZA_SUCCESS,
+    isDeletingPizza: false,
+    deletePizzaError: null,
+    id: id
+  }
+}
+
+const deletePizzaFail = error => {
+  return {
+    type: actionTypes.DELETE_PIZZA_FAIL,
+    isDeletingPizza: false,
+    deletePizzaError: error
+  }
+}
+// end of DELETE PIZZA

@@ -22,6 +22,7 @@ const PizzaList = ({retrievePizzas, pizzas}) => {
           <th scope="col">Size</th>
           <th scope="col">Vegetarian?</th>
           <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>

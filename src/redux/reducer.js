@@ -9,7 +9,9 @@ const initialState = {
     isEditingPizza: false,
     editPizzaError: null,
     isAddingPizza: false,
-    addPizzaError: null
+    addPizzaError: null,
+    isDeletingPizza: false,
+    deletePizzaError: null
   },
   pizzaEditForm: {
     id: null,
@@ -108,6 +110,31 @@ const addPizzaFail = (state, action) => {
   })
 }
 
+const deletePizzaStart = (state, action) => {
+  return updateObject(state, {
+    isDeletingPizza: action.isDeletingPizza,
+    deletePizzaError: action.isDeletingPizza
+  })
+}
+
+const deletePizzaSuccess = (state, action) => {
+  let pizzas = JSON.parse(JSON.stringify(state.pizzas))
+  let newPizzas = pizzas.filter(pizza => pizza.id !== action.id)
+
+  return updateObject(state, {
+    isDeletingPizza: action.isDeletingPizza,
+    deletePizzaError: action.deletePizzaError,
+    pizzas: newPizzas
+  })
+}
+
+const deletePizzaFail = (state, action) => {
+  return updateObject(state, {
+    isDeletingPizza: action.isDeletingPizza,
+    deletePizzaError: action.deletePizzaError
+  })
+}
+
 const pizzasReducer = (state = initialState.pizzas, action) => {
   switch (action.type) {
     case actionTypes.FETCH_PIZZAS_START: return fetchPizzasStart(state, action)
@@ -119,6 +146,9 @@ const pizzasReducer = (state = initialState.pizzas, action) => {
     case actionTypes.ADD_PIZZA_START: return addPizzaStart(state, action)
     case actionTypes.ADD_PIZZA_SUCCESS: return addPizzaSuccess(state, action)
     case actionTypes.ADD_PIZZA_FAIL: return addPizzaFail(state, action)
+    case actionTypes.DELETE_PIZZA_START: return deletePizzaStart(state, action)
+    case actionTypes.DELETE_PIZZA_SUCCESS: return deletePizzaSuccess(state, action)
+    case actionTypes.DELETE_PIZZA_FAIL: return deletePizzaFail(state, action)
     default: return state
   }
 }
